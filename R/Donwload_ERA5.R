@@ -1,4 +1,5 @@
-#' Title
+#' Download ERA5 data
+#'
 #'
 #' @param user
 #' @param key
@@ -144,3 +145,4 @@ era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate, ye
   masked_raster <- rasterize_and_mask(ncfile, spatial_obj)
   return(masked_raster)
 }
+devtools::usethis::use_data(era5, overwrite = TRUE)
