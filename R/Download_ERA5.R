@@ -49,10 +49,10 @@ get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate
                      path = NULL, product_type = NULL, grid = NULL) {
 
   # If not provided, set default values for optional parameters
-  if (missing(aoi)) aoi <- NULL
   if (missing(year_interval)) year_interval <- 1
   if (missing(month_interval)) month_interval <- 1
   if (missing(day_interval)) day_interval <- 1
+  if (missing(aoi)) aoi <- NULL
   if (missing(target_years)) target_years <- NULL
   if (missing(target_months)) target_months <- NULL
   if (missing(target_days)) target_days <- NULL
