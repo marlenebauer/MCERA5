@@ -4,24 +4,18 @@
 \alias{rasterize_and_mask}
 \title{Rasterize and mask the ncfile downloaded by the ERA5 function}
 \usage{
-rasterize_and_mask(ncfile, spatial_obj)
+rasterize_and_mask(ncfile, aoi)
 }
 \arguments{
 \item{ncfile}{The downloaded ncfile ("netcdf" format) from the Copernicus Climate Data Store by the ERA5 function.\cr}
 
-\item{spatial_obj}{The spatial object specified in the ERA5 function to crop the raster to}
+\item{aoi}{The Area of interest provided by the user in the get_ERA5 function.\cr
+This can be an sf, sfc, sfg, SpatRaster or SpatVector object or a country name selected from the rgeoboundaries package.}
 }
 \value{
-A SpatRaster object that has been cropped to the extent of the provided spatial object
+A SpatRaster object that has been cropped to the extent of the provided aoi.
 }
 \description{
 This function takes the downloaded ncfile by the ERA5 function and converts it to a SpatRaster.\cr
 In addition, the function will crop the raster to the extent of the spatial object specified in the ERA5 function.
-}
-\examples{
-ncfile <- "2m_temperature_2020-01-18__2020-01-30.nc"
-spatial_obj <- st_read("Germany.shp")
-masked_and_rasterized_data <- rasterize_and_mask(ncfile, spatial_obj)
-
-
 }

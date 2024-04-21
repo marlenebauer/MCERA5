@@ -14,14 +14,7 @@ It can be in hours (ending with 'h') or seconds (ending with 's'). \cr}
 The time in seconds as input for the timeout parameter.
 }
 \description{
-This function allows you to use hours or seconds as input for the timeout parameter in the \code{\link{era5}} function.
+This function allows you to use hours or seconds as input for the timeout parameter in the \code{\link{get_era5}} function.
 By default, you can only use seconds as input for the timeout parameter. This function allows you to use hours as input as well.
 The timeout parameter is used to set the maximum time to wait for the data to be downloaded from the Copernicus Climate Data Store.
-}
-\examples{
-time_out <- "3h"
-time_out <- convert_hours_to_seconds(time_out)
-print(time_out)
-'10800'
-
 }

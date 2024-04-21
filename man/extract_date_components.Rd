@@ -2,7 +2,7 @@
 % Please edit documentation in R/extract_date_components.R
 \name{extract_date_components}
 \alias{extract_date_components}
-\title{Extract date components as input for the ERA5 function}
+\title{Extracting date components for the desired format of the API}
 \usage{
 extract_date_components(
   StartDate,
@@ -13,82 +13,53 @@ extract_date_components(
   day_interval = 1,
   target_years = NULL,
   target_days = NULL,
-  seasonal_data = NULL,
+  season = NULL,
   target_months = NULL
 )
 }
 \arguments{
-\item{StartDate}{Character string. The start date specified in the ERA5 function (e.g. "2000-01-01")}
+\item{StartDate}{A character string or Date object specifying the start date of the data extraction in the format "YYYY-MM-DD" (e.g. "2010-01-01").}
 
-\item{EndDate}{Character string. The end date specified in the ERA5 function (e.g. "2000-01-31")}
+\item{EndDate}{A character string or Date object specifying the end date of the data extraction in the format "YYYY-MM-DD" (e.g. "2018-11-05").}
 
-\item{dataset_short_name}{Character string. The short name of the dataset (e.g. "reanalysis-era5-land")}
+\item{dataset_short_name}{A character string specifying the dataset short name (e.g. "ERA5-Land monthly averaged data") as in the API
+It is used to check if the dataset is monthly or daily. If the dataset is monthly, days will be an empty list.}
 
-\item{year_interval}{Integer. The interval for the years to be extracted. The default is 1 (optional parameter)}
+\item{year_interval}{An integer specifying the interval for the years (e.g. 2,3,...). The default is 1 (optional parameter).}
 
-\item{month_interval}{Integer. The interval for the months to be extracted. The default is 1 (optional parameter)}
+\item{month_interval}{An integer specifying the interval for the months (e.g. 2,3,...). The default is 1 (optional parameter).}
 
-\item{day_interval}{Integer. The interval for the days to be extracted. The default is 1 (optional parameter)}
+\item{day_interval}{An integer specifying the interval for the days (e.g. 2,3,...). The default is 1 (optional parameter).}
 
-\item{target_years}{Character vector. Can be used to only extract specific years (optional parameter).}
+\item{target_years}{A character vector specifying the years to be selected (e.g. c("2015", "2016", "2017")). If provided, only these years will be selected and the months and days adjusted (optional parameter).}
 
-\item{target_days}{Character vector. Can be used to only extract specific days (optional parameter).}
+\item{target_days}{A character vector specifying the days to be selected (e.g. c("15", "16", "17")). If provided, only these days will be selected and the months and years adjusted (optional parameter).\cr
+If the dataset is monthly, it is not possible to select days, the parameter will be ignored and days will be empty.}
 
-\item{seasonal_data}{Character string. Can be used to extract the months of a specific season (optional parameter).\cr
-For details, see the \code{\link{get_seasonal_data}} function.}
+\item{season}{A character string specifying the season to be selected (e.g. "DJF", "MAM", "JJA", "SON") (optional parameter) \cr}
 
-\item{target_months}{Character vector. Can be used to only extract specific months (optional parameter).}
+\item{target_months}{A character vector specifying the months to be selected (e.g. c("01", "02", "03")). If provided, only these months will be selected and the days and years adjusted (optional parameter).}
 }
 \value{
-A list with the extracted years, months and days
+A list containing the extracted date components: \cr
+\itemize{
+\item year: A character vector containing the years \cr
+\item month: A character vector containing the months \cr
+\item day: A character vector containing the days
+}
 }
 \description{
-This function extracts the year, month and day between StartDate and EndDate specified in the ERA5 function. \cr
-The API for the Copernicus Climate Data Store can only handle year, month and day as input for the download request. \cr
-This function simplifies the process of extracting the year, month and day by allowing the user to specify a Start date and End date. \cr
-Moreover, the user can specify an interval for the year, month and day, so that every n-th year, month and day is extracted. \cr
-The user can also specify target years, months and days to extract only the specified years, months and days. \cr
-Besides, the user can specify a season so that the function will extract the months of the specified season. \cr
-If a monthly dataset is specified, only the year and month will be extracted.
+The Copernicus Climate Data Store (CDS) API requires the date components for downloading the data to be in a specific format. \cr
+It requires one list for the years, one for the months and one for the days. \cr
+This function allows the user to set a StartDate and EndDate, and the function will automatically extract the years, months, and days, if no other specifications are set. \cr
+In addition, the user can filter the dates based on the following parameters: \cr
+\itemize{
+\item target_years: select specific years \cr
+\item target_months: select specific months \cr
+\item target_days: select specific days \cr
+\item season: select a season \cr
+\item year_interval: select every nth year \cr
+\item month_interval: select every nth month \cr
+\item day_interval: select every nth day \cr
 }
-\examples{
-StartDate <- "2000-01-01"
-EndDate <- "2000-01-31"
-dataset_short_name <- "reanalysis-era5-land"
-date_components <- extract_date_components(StartDate, EndDate, dataset_short_name)
-print(date_components$days)
-$years
-[1] "2000"
-$months
-[1] "01"
-$days
-[1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "20"
-[21] "21" "22" "23" "24" "25" "26" "27" "28" "29" "30" "31"
-
-Example using target_days
-StartDate <- "2000-01-01"
-EndDate <- "2000-12-31"
-dataset_short_name <- "reanalysis-era5-land"
-date_components <- extract_date_components(StartDate, EndDate, dataset_short_name, target_days = c("01", "15", "31"))
-print(date_components)
-$years
-[1] "2000"
-$months
-[1] "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12"
-$days
-[1] "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15"
-[21] "31" "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15" "31" "01" "15" "31"
-
-Example using seasonal data
-StartDate <- "2000-12-01"
-EndDate <- "2002-02-01"
-dataset_short_name <- "reanalysis-era5-land-monthly-means"
-date_components <- extract_date_components(StartDate, EndDate, dataset_short_name, seasonal_data = "DJF")
-print(date_components)
-$years
-[1] "2000" "2001" "2002"
-$months
-[1] "12" "01" "02" "12" "01" "02"
-$days
-NULL
 }
