@@ -19,22 +19,22 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-'MCERA5' is designed to simplify the download and analysis of the European Centre for Medium-range Weather Forecasts ReAnalysis 5 (ERA5) family datasets.
-It uses the European Centre for Medium-Range Weather Forecasts (ECMWFR) Package in R to interface with the ECMWFR API web service and access the ERA5 data in the Copernicus Climate Data Store (CDS).
+'MCERA5' is designed to simplify the download and analysis of the European Centre for Medium-range Weather Forecasts ReAnalysis 5 [![(ERA5)](https://confluence.ecmwf.int/display/CKB/The+family+of+ERA5+datasets)] family.
+It uses the European Centre for Medium-Range Weather Forecasts [`ecmwfr` package](https://github.com/bluegreen-labs/ecmwfr) in `R` to use the ECMWFR API web service and access the ERA5 data from the [![Copernicus Climate Data Store (CDS)](https://cds.climate.copernicus.eu/cdsapp#!/home)].
 ## Installation
 'MCERA5' is not yet on CRAN, so it needs to be installed via GitHub.
 You can install the latest development version of 'MCERA5' like this:
 
-``` r
+``` {r}
 remotes::install_github("marlenebauer/MCERA5") &
 remotes::install_github("chrissikrause/MCERA5")
 ```
 Users require a user ID and API key to access the Copernicus Store Data (CDS) API which can be found at their [![CDS profile](https://cds.climate.copernicus.eu/user/login)].
 
 Additionally, you need to download the 'rgeoboundaries' package from GitHub to exploit the entire capability of 'MCERA5':
-```{r example}
+```{r}
 remotes::install_github("wmgeolab/rgeoboundaries")
-## basic example code
+library(rgeoboundaries)
 ```
 
 ## Get started
