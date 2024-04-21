@@ -14,29 +14,37 @@ knitr::opts_chunk$set(
 )
 ```
 
-# MCERA5
+# MCERA5 
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of MCERA5 is to ...
-
+'MCERA5' is designed to simplify the download and analysis of the European Centre for Medium-range Weather Forecasts ReAnalysis 5 (ERA5) family datasets.
+It uses the European Centre for Medium-Range Weather Forecasts (ECMWFR) Package in R to interface with the ECMWFR API web service and access the ERA5 data in the Copernicus Climate Data Store (CDS).
 ## Installation
-
-You can install the development version of MCERA5 like so:
+'MCERA5' is not yet on CRAN, so it needs to be installed via GitHub.
+You can install the latest development version of 'MCERA5' like this:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+remotes::install_github("marlenebauer/MCERA5") &
+remotes::install_github("chrissikrause/MCERA5")
+```
+Users require a user ID and API key to access the Copernicus Store Data (CDS) API which can be found at their [![CDS profile](https://cds.climate.copernicus.eu/user/login)].
+
+Additionally, you need to download the 'rgeoboundaries' package from GitHub to exploit the entire capability of 'MCERA5':
+```{r example}
+remotes::install_github("wmgeolab/rgeoboundaries")
+## basic example code
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
+## Get started
+After successfully installed, you can load the package like this and work with the provided functions.
 ```{r example}
 library(MCERA5)
 ## basic example code
 ```
+
+
 
 What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
