@@ -20,7 +20,7 @@
 #'
 raster_analysis <- function(data){
   # Call convert_units()
-  #data <- MCERA5::convert_units(data)
+  data <- MCERA5::convert_units(data)
   # Check if time attribute of raster is present in the input data
   if (is.null(time(data))) {
     stop("Time attribute not found.")
