@@ -42,10 +42,31 @@
 #' @return A SpatRaster object containing the downloaded ERA5 data cropped to the extent of the aoi.
 #' @export
 #'
-get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate, year_interval = 1,
-                     month_interval = 1, day_interval = 1, target_years = NULL, target_months = NULL, target_days = NULL,season = NULL,
-                     aoi = NULL, country_name = NULL, admin_level = NULL, product_type = NULL, pressure_level = NULL, target_file = NULL,
-                     all_hours = FALSE, time_out, path = NULL, time, grid = NULL) {
+get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate, time, aoi = NULL, time_out = NULL,
+                     year_interval = NULL, month_interval = NULL, day_interval = NULL, target_years = NULL,
+                     target_months = NULL, target_days = NULL, season = NULL, country_name = NULL,
+                     admin_level = NULL, pressure_level = NULL, target_file = NULL, all_hours = FALSE,
+                     path = NULL, product_type = NULL, grid = NULL) {
+
+  # If not provided, set default values for optional parameters
+  if (missing(aoi)) aoi <- NULL
+  if (missing(year_interval)) year_interval <- 1
+  if (missing(month_interval)) month_interval <- 1
+  if (missing(day_interval)) day_interval <- 1
+  if (missing(target_years)) target_years <- NULL
+  if (missing(target_months)) target_months <- NULL
+  if (missing(target_days)) target_days <- NULL
+  if (missing(season)) season <- NULL
+  if (missing(country_name)) country_name <- NULL
+  if (missing(admin_level)) admin_level <- NULL
+  if (missing(pressure_level)) pressure_level <- NULL
+  if (missing(target_file)) target_file <- NULL
+  if (missing(all_hours)) all_hours <- FALSE
+  if (missing(time_out)) time_out <- "1h"
+  if (missing(path)) path <- NULL
+  if (missing(product_type)) product_type <- NULL
+  if (missing(time)) time <- NULL
+  if (missing(grid)) grid <- NULL
 
   # Set default grid value for ERA5 land and ERA5 datasets
   # ERA5 land has a grid of 0.1/0.1
@@ -84,8 +105,13 @@ get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate
 
   # If a country name is provided, use the selected country as aoi
   if (is.null(aoi) && !is.null(country_name)) {
-    aoi <- MCERA5::generate_spatial_obj(country_name, admin_level)
+    aoi <- generate_spatial_obj(country_name, admin_level)
   }
+  # if no aoi and no country name are provided, stop the function
+  if (is.null(aoi)) {
+    stop("Please provide an Area of Interest (aoi) or a country name.")
+  }
+
   # Determine target months based on seasonal data if specified
   if (!is.null(season)) {
     target_months <- MCERA5::get_seasonal_data(season)
@@ -176,4 +202,3 @@ get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate
   # Return the masked raster
   return(masked_raster)
 }
-

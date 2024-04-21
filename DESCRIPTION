@@ -14,4 +14,9 @@ Imports:
     ecmwfr,
     rgeoboundaries,
     sf,
-    terra
+    terra, 
+    dplyr,
+    tidyr,
+    ggplot2,
+    trend,
+    Kendall
