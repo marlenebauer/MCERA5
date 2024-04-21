@@ -72,6 +72,7 @@ result <- raster_analysis(data)
 # Plot the slope of result
 result_plot <- monthly_plots(result, "mean", "output_file.png")
 ```
+<img src="https://github.com/marlenebauer/MCERA5/blob/main/mean_months.png" width=623 />
 
 
 
