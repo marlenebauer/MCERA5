@@ -6,45 +6,58 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-‘MCERA5’ is designed to simplify the download and analysis of the
+**MCERA5** is designed to simplify the download and analysis of the
 European Centre for Medium-range Weather Forecasts ReAnalysis 5 (ERA5)
-family. It simplifies the downloading of ERA5 datasets by summarizing
-
-It uses the European Centre for Medium-Range Weather Forecasts [`ecmwfr`
-package](https://github.com/bluegreen-labs/ecmwfr) in `R` to interface
-the ECMWFR API web service and access the ERA5 data from the [Copernicus
-Climate Data Store
+family. It uses the European Centre for Medium-Range Weather Forecasts
+[`ecmwfr package`](https://github.com/bluegreen-labs/ecmwfr) in `R` to
+interface the ECMWFR API web service and access the ERA5 data from the
+[Copernicus Climate Data Store
 (CDS)](https://cds.climate.copernicus.eu/cdsapp#!/home).
+
+The package is designed to:
+
+- Be user-friendly and provide a simple interface to access the ERA5
+  data.
+- Download ERA5 data for a specific time period, variable, and area of
+  interest with several filter options.
+- Perform time-series analysis for the ERA5 data.
+- Visualize the ERA5 data and results of the analysis.
 
 ## Installation
 
-‘MCERA5’ is not yet on CRAN, so it needs to be installed via GitHub. You
-can install the latest development version of ‘MCERA5’ like this:
+`MCERA5` is not yet on CRAN, so it needs to be installed via GitHub. You
+can install the latest development version of `MCERA5` like this:
 
 ``` r
 remotes::install_github("marlenebauer/MCERA5")
-#> Skipping install of 'MCERA5' from a github remote, the SHA1 (a2ff2d29) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 ```
 
 Users require a user ID and API key to access the Copernicus Store Data
-(CDS) API which can be found at their [CDS
+(CDS) via the Ecmwfr API which can be found at their [CDS
 profile](https://cds.climate.copernicus.eu/user/login).
 
-Additionally, you need to download the ‘rgeoboundaries’ package from
-GitHub to exploit the entire capability of ‘MCERA5’:
+Additionally, you need to download the `rgeoboundaries` package from
+GitHub to exploit the entire capability of `MCERA5`:
 
 ``` r
 remotes::install_github("wmgeolab/rgeoboundaries")
-#> Skipping install of 'rgeoboundaries' from a github remote, the SHA1 (ecb0269e) has not changed since last install.
-#>   Use `force = TRUE` to force installation
 library(rgeoboundaries)
 ```
 
-## Get started
+## Example
 
 After successfully installed, you can load the package as below and work
-with the provided functions.
+with the provided functions:
+
+``` r
+library(MCERA5)
+```
+
+For downloading ERA5 data, call the `get_era5` function.
+
+The provided example will download temperature data for Germany between
+December 2009 and February 2020 for the winter months (December, January
+February) at 4:00 and 5:00 UTC.
 
 ``` r
 user <- "Your user ID"
@@ -56,11 +69,35 @@ StartDate <- "2009-12-01"
 EndDate <- "2020-02-29"
 season <- "DJF"
 time = sprintf("%02d:00", 4:5) # c("04:00", "05:00")
-country_name <- "Germany" # provided by the 'rgeoboundaries' package
+country_name <- "Germany" # provided by the `rgeoboundaries` package
 # call the get_era5 function
 # optional parameters need to be called as shown below
 data <- get_era5(user, key, dataset_short_name, variable, StartDate, EndDate, time, season=season, country_name=country_name, product_type=product_type)
 ```
+
+The data can for example analyzed by the `raster_analysis` function.
+This function groups input data by months and calculates statistics over
+time period of data set. Available parameters are mean, median, min,
+max, Sen Slope, Mann-Kendall tau and Mann-Kendall p-value. This will
+calculate the mean temperature value for each month over time.
+
+``` r
+result <- raster_analysis(data)
+# Plot the slope of result
+result_plot <- monthly_plots(result, "mean", "output_file.png")
+```
+
+<figure>
+<img
+src="https://raw.githubusercontent.com/marlenebauer/MCERA5/main/mean_months_.png"
+width="900" height="400" alt="Monthly mean over time" />
+<figcaption aria-hidden="true">Monthly mean over time</figcaption>
+</figure>
+
+For further details on the functions and their parameters, please refer
+to the package documentation.
+
+### Additional Information about the ERA5 family datasets
 
 An overview of the ERA5 family datasets with all available
 dataset_short_names and product_types is provided
