@@ -23,7 +23,7 @@ can install the latest development version of ‘MCERA5’ like this:
 
 ``` r
 remotes::install_github("marlenebauer/MCERA5")
-#> Skipping install of 'MCERA5' from a github remote, the SHA1 (5c4846c0) has not changed since last install.
+#> Skipping install of 'MCERA5' from a github remote, the SHA1 (a2ff2d29) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 
@@ -45,6 +45,22 @@ library(rgeoboundaries)
 
 After successfully installed, you can load the package as below and work
 with the provided functions.
+
+``` r
+user <- "Your user ID"
+key <- " Your personal API key"
+dataset_short_name <- "reanalysis-era5-land-monthly-means"
+product_type <- "monthly_averaged_reanalysis"
+variable <- "2m_temperature"
+StartDate <- "2009-12-01"
+EndDate <- "2020-02-29"
+season <- "DJF"
+time = sprintf("%02d:00", 4:5) # c("04:00", "05:00")
+country_name <- "Germany" # provided by the 'rgeoboundaries' package
+# call the get_era5 function
+# optional parameters need to be called as shown below
+data <- get_era5(user, key, dataset_short_name, variable, StartDate, EndDate, time, season=season, country_name=country_name, product_type=product_type)
+```
 
 An overview of the ERA5 family datasets with all available
 dataset_short_names and product_types is provided

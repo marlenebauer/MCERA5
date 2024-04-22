@@ -3,6 +3,7 @@
 #' This function allows users to download ERA5 data from the Copernicus Climate Data Store (CDS) API in R. \cr
 #' The function uses the ecmwf package to access the CDS API and downloads the data in the NetCDF format. \cr
 #' It will return the downloaded data as a SpatRaster object cropped to the extent of your aoi and can be used for further analysis. \cr
+#' It simplifies the downloading of ERA5 datasets by summarizing the necessary steps to access the CDS API and providing filtering options . \cr
 #'
 #'
 #' @param user Character string. Your Copernicus Climate Data Store (CDS) API username
@@ -40,6 +41,7 @@
 #' @import rgeoboundaries
 #'
 #' @return A SpatRaster object containing the downloaded ERA5 data cropped to the extent of the aoi.
+#'
 #' @export
 #'
 get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate, time, aoi = NULL, time_out = NULL,
