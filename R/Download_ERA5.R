@@ -67,7 +67,6 @@ get_era5 <- function(user, key, dataset_short_name, variable, StartDate, EndDate
   if (missing(time_out)) time_out <- "1h"
   if (missing(path)) path <- NULL
   if (missing(product_type)) product_type <- NULL
-  if (missing(time)) time <- NULL
   if (missing(grid)) grid <- NULL
 
   # Set default grid value for ERA5 land and ERA5 datasets
