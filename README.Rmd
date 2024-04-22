@@ -41,7 +41,7 @@ library(rgeoboundaries)
 
 After successfully installed, you can load the package as below and work with the provided functions.
 
-```{r example}
+```{r download}
 library(MCERA5)
 
 # Download monthly ERA5 land data
@@ -73,14 +73,4 @@ result <- raster_analysis(data)
 result_plot <- monthly_plots(result, "mean", "output_file.png")
 ```
 
-![Plot of monthly raster data](%22https://github.com/marlenebauer/MCERA5/blob/main/mean_months.png%22)
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+[![Plot of monthly raster data]()](https://github.com/marlenebauer/MCERA5/blob/main/mean_months.png)
