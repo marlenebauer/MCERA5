@@ -122,4 +122,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Author
 
-Developed by [Marlene Bauer](https://github.com/marlenebauer). Contributions and issues are welcome.
+Developed by [Christina Krause](https://github.com/chrissikrause) & [Marlene Bauer](https://github.com/marlenebauer). Contributions and issues are welcome.
